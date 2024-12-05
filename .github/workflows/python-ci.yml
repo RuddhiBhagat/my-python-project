@@ -12,7 +12,7 @@ jobs:
   test:
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9]  # Different Python versions
+        python-version: [3.7.x, 3.8.x, 3.9.x]  # Different Python versions with the x suffix
         os: [ubuntu-latest, windows-latest, macos-latest]  # Different OS
 
     runs-on: ${{ matrix.os }}  # The OS will be selected from the matrix
@@ -31,6 +31,12 @@ jobs:
           python -m pip install --upgrade pip  # Upgrade pip
           pip install -r requirements.txt || echo "No requirements.txt file"  # Install dependencies (if any)
 
+      - name: Show Python version and OS
+        run: |
+          echo "Running on OS: ${{ matrix.os }}"
+          python --version  # Check Python version
+
       - name: Run main.py
         run: |
           python main.py  # Execute your main.py script
+
