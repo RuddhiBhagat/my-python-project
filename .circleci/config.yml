@@ -1,0 +1,28 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/python:3.9   # choose one Python version first
+    steps:
+      - checkout
+
+      - run:
+          name: Upgrade pip & install dependencies
+          command: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt || echo "No requirements.txt file"
+
+      - run:
+          name: Show Python version
+          command: python --version
+
+      - run:
+          name: Run main.py
+          command: python main.py
+
+workflows:
+  version: 2
+  python-ci:
+    jobs:
+      - test
